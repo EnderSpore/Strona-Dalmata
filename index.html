@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="pl" style="background:#1b1b1b;color-scheme:dark;">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dalmata</title>
+  <meta name="description" content="Profesjonalne usługi budowlane — remonty, budowa domów, elewacje. Skontaktuj się z nami." />
+  <link rel="icon" href="assets/favicon.png" />
+
+  <!-- ✅ Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+  /* ---------- Root palette ---------- */
+  :root {
+    --accent:#d32f2f;
+    --dark:#111;
+    --light:#f2f2f2;
+    --bg:#1b1b1b;
+    --panel:#242424;
+    --muted:#aaa;
+    --header-h:64px;
+    font-family:"Roboto", Arial, sans-serif;
+  }
+
+  /* ---------- Global ---------- */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html, body {height:100%;scroll-behavior:smooth;}
+  body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(120deg, #1b1b1b, #222, #1a1a1a);
+  background-size: 400% 400%;
+  animation: bgShift 20s ease infinite;
+  color: var(--light);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  position: relative;
+}
+
+/* Gradient animation */
+@keyframes bgShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Subtle overlay for visual depth */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(211,47,47,0.12), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(255,255,255,0.05), transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+  a {color:inherit;text-decoration:none}
+  img {display:block;max-width:100%}
+
+  /* ---------- Header ---------- */
+  header {
+    position:fixed;
+    inset:0 0 auto 0;
+    height:var(--header-h);
+    background:rgba(17,17,17,0.95);
+    color:var(--light);
+    z-index:1200;
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(255,255,255,0.05);
+  }
+
+  .topbar {
+    max-width:1200px;
+    margin:0 auto;
+    height:var(--header-h);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+  }
+
+  .brand {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-weight:700;
+    color:var(--light);
+  }
+
+  .brand img {
+    height:40px;
+    border-radius:6px;
+    background: transparent;
+    padding:0;
+  }
+
+  .brand div div {
+    font-family:'Cinzel Decorative', serif;
+    font-weight:700;
+    font-size:1.9rem;
+    letter-spacing:5px;
+    color:var(--light);
+  }
+
+  nav {
+    display:flex;
+    gap:18px;
+    align-items:center;
+  }
+
+  nav a {
+    color:var(--light);
+    font-weight:600;
+    padding:8px 10px;
+    border-radius:6px;
+    transition:background .2s,color .2s;
+  }
+
+  nav a:hover {
+    background:rgba(255,255,255,0.1);
+    color:var(--accent);
+  }
+
+  .menu-toggle {
+    display:none;
+    background:transparent;
+    border:0;
+    color:var(--light);
+    font-size:24px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero-wrap {width:100%;position:relative;top:var(--header-h);}
+  .hero {
+    width:100vw;
+    min-height:calc(100vh - var(--header-h));
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:var(--light);
+  }
+  .hero-slide {
+    position:absolute;inset:0;
+    background-size:cover;
+    background-position:center;
+    opacity:0;
+    transform:scale(1.02);
+    transition:opacity 1s ease, transform 1s ease;
+  }
+  .hero-slide.active{opacity:1;transform:scale(1)}
+  .hero-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.55));
+    z-index:2;
+  }
+  .hero-content{
+    position:relative;z-index:3;max-width:980px;
+    padding:0 20px;
+    opacity:0;transform:translateY(30px);
+    transition:all .9s cubic-bezier(.2,.9,.2,1);
+    text-align:center;
+  }
+  .hero-content.visible{opacity:1;transform:translateY(0)}
+  .hero h1{font-size:clamp(30px,6vw,64px);line-height:1.02;margin-bottom:16px}
+  .hero p{max-width:760px;margin:0 auto 22px;color:rgba(255,255,255,0.92)}
+  .cta-btn{
+    background:var(--accent);
+    color:#fff;
+    border:0;
+    padding:12px 20px;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(0,0,0,0.25);
+    transition:transform .16s;
+  }
+  .cta-btn:hover{transform:translateY(-3px)}
+  .hero-dots{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:4;display:flex;gap:8px}
+  .hero-dots button{width:10px;height:10px;border-radius:50%;border:0;background:rgba(255,255,255,0.4);cursor:pointer}
+  .hero-dots button.active{background:var(--accent)}
+
+  /* ---------- Main ---------- */
+  main{max-width:1200px;margin:50px auto;padding:0 20px}
+  section{padding:70px 0}
+  h2{text-align:center;font-size:32px;margin-bottom:28px;color:#fff;}
+
+  /* ---------- About ---------- */
+  .about{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+  .about .txt{flex:1;min-width:260px;text-align:center}
+  .about .img {
+  width: 420px;
+  max-width: 100%;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+}
+  .highlights{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:16px;
+    margin:24px 0;
+  }
+  .highlight{
+    background:var(--panel);
+    padding:16px;
+    border-radius:8px;
+    text-align:center;
+    box-shadow:0 4px 14px rgba(0,0,0,0.3);
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .highlight:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,0.45);}
+  .highlight i{font-size:28px;color:var(--accent);margin-bottom:8px;display:block}
+  .highlight span{font-weight:600;color:var(--light);font-size:1rem;}
+
+  .about-btn{
+    margin-top:24px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--accent);
+    color:#fff;
+    font-weight:700;
+    font-size:1rem;
+    padding:14px 80px;
+    border-radius:8px;
+    text-decoration:none;
+    transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
+    box-shadow:0 8px 20px rgba(0,0,0,0.3);
+  }
+  .about-btn:hover{
+    background:#b71c1c;
+    transform:translateY(-3px);
+    box-shadow:0 10px 24px rgba(0,0,0,0.45);
+  }
+  .about-btn i{font-size:1.1rem;transition:transform 0.2s ease;}
+  .about-btn:hover i{transform:translateX(4px)}
+
+  /* ---------- Services ---------- */
+  .services{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+  }
+  .service{
+    position:relative;
+    background-size:cover;
+    background-position:center;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    padding:26px;
+    text-align:center;
+    overflow:hidden;
+    transition:transform .25s,box-shadow .25s;
+  }
+  .service::before{
+    content:"";
+    position:absolute;inset:0;
+    background:rgba(0,0,0,0.55);
+    border-radius:inherit;
+  }
+  .service *{position:relative;z-index:1;}
+  .service:hover{transform:translateY(-8px);box-shadow:0 12px 30px rgba(0,0,0,.5);}
+  .service h3{color:var(--accent);margin-bottom:8px}
+  .service i{font-size:40px;color:var(--accent);margin-bottom:12px;display:block}
+  .service:nth-child(1){background-image:url("assets/service-budowa.jpg")}
+  .service:nth-child(2){background-image:url("assets/service-remonty.jpg")}
+  .service:nth-child(3){background-image:url("assets/service-elewacje.jpg")}
+  .service:nth-child(4){background-image:url("assets/service-instalacje.jpg")}
+
+  /* ---------- Kontakt ---------- */
+  #kontakt{
+    position:relative;
+    background-image:url("assets/kontakt-bg.jpg");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:scroll;
+    color:#fff;
+    width:100vw;
+    left:50%;right:50%;
+    margin-left:-50vw;margin-right:-50vw;
+  }
+  #kontakt::before{
+    content:"";
+    position:absolute;inset:0;
+    background:rgba(0,0,0,0.6);
+    z-index:0;
+  }
+  #kontakt *{position:relative;z-index:1;}
+  #kontakt .contact-grid{
+    max-width:1400px;margin:0 auto;padding:0 20px;
+    display:grid;grid-template-columns:1fr 420px;gap:22px;
+  }
+  #kontakt form,
+#kontakt .info-card {
+  background:rgba(36,36,36,0.95); /* ciemny panel */
+  color:var(--light);
+  padding:20px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 8px 20px rgba(0,0,0,0.5);
+}
+
+/* Pola formularza */
+#kontakt input,
+#kontakt textarea {
+  width:100%;
+  background:#1e1e1e;
+  color:var(--light);
+  padding:12px;
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:6px;
+  margin-bottom:12px;
+  font-size:0.98rem;
+}
+
+#kontakt input::placeholder,
+#kontakt textarea::placeholder {
+  color:rgba(255,255,255,0.5);
+}
+
+/* Przycisk wysyłania */
+#kontakt button[type=submit] {
+  background:var(--accent);
+  color:#fff;
+  padding:12px 16px;
+  border-radius:6px;
+  border:0;
+  font-weight:700;
+  cursor:pointer;
+  transition:background 0.2s, transform 0.2s;
+}
+
+#kontakt button[type=submit]:hover {
+  background:#b71c1c;
+  transform:translateY(-2px);
+}
+
+/* Karta informacji */
+#kontakt .info-card h3 {
+  color:var(--accent);
+  margin-top:10px;
+}
+
+#kontakt a {
+  color:var(--accent);
+  text-decoration:none;
+}
+
+#kontakt a:hover {
+  text-decoration:underline;
+}
+
+  }
+  input,textarea{width:100%;padding:10px;border:1px solid #bbb;border-radius:6px;margin-bottom:10px;font-size:0.98rem;}
+  button[type=submit]{background:var(--accent);color:#fff;padding:12px 16px;border-radius:6px;border:0;font-weight:700;cursor:pointer;}
+  button[type=submit]:hover{background:#b71c1c}
+  button[disabled]{opacity:.6;cursor:default;}
+  .info-card h3{color:#000;margin-top:10px;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:#111;
+    color:#ccc;
+    padding:20px;
+    font-size:0.95rem;
+    text-align:center;
+    border-top:0px solid rgba(255,255,255,0.1);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:980px){
+    nav{display:none;}
+    .menu-toggle{display:block;}
+    .about{flex-direction:column-reverse;}
+    .contact-grid{grid-template-columns:1fr;}
+    .hero h1{font-size:clamp(26px,7vw,44px);}
+  }
+  
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <img src="assets/logo.png" alt="Logo Dalmat">
+        <div><div style="font-weight:800">Dalmata</div></div>
+      </div>
+      <nav aria-label="Główne menu">
+        <a href="index.html">Strona główna</a>
+        <a href="#o-nas">O nas</a>
+        <a href="#uslugi">Usługi</a>
+        <a href="realizacje.html">Realizacje</a>
+        <a href="#kontakt" style="background:var(--accent);padding:8px 10px;border-radius:6px;color:#fff">Kontakt</a>
+      </nav>
+      <button class="menu-toggle" aria-expanded="false" aria-label="Pokaż menu">☰</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero-wrap">
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Profesjonalne usługi budowlane — terminowo i solidnie</h1>
+        <p>Remonty, budowa domów pod klucz, elewacje i instalacje. Bezpłatna wycena i gwarancja jakości.</p>
+        <button class="cta-btn" onclick="document.querySelector('#kontakt').scrollIntoView({behavior:'smooth'})">Skontaktuj się</button>
+      </div>
+      <div class="hero-dots"></div>
+    </section>
+  </div>
+
+  <main>
+    <!-- O NAS -->
+<section id="o-nas" class="anim-in">
+  <h2>O nas</h2>
+  <div class="about">
+    <div class="txt">
+      <p><strong>Dalmat</strong> to firma budowlana z ponad 10-letnim doświadczeniem. Realizujemy projekty od pierwszej koncepcji po oddanie kluczy, dbając o jakość, terminowość i zaufanie naszych klientów.</p>
+      
+      <div class="highlights">
+        <div class="highlight">
+          <i class="fas fa-award"></i>
+          <span>10+ lat doświadczenia</span>
+        </div>
+        <div class="highlight">
+          <i class="fas fa-users"></i>
+          <span>Wykwalifikowany zespół</span>
+        </div>
+        <div class="highlight">
+          <i class="fas fa-shield-alt"></i>
+          <span>Gwarancja jakości</span>
+        </div>
+      </div>
+      <!-- ✅ New Button -->
+      <a href="realizacje.html" class="about-btn">
+  Zobacz nasze realizacje <i class="fas fa-arrow-right"></i>
+</a>
+
+    </div>
+    <div class="img"><img src="assets/team.png" alt="Zespół Dalmat"></div>
+  </div>
+</section>
+
+    <!-- USŁUGI -->
+    <section id="uslugi" class="anim-in">
+      <h2>Nasze usługi</h2>
+      <div class="services">
+        <div class="service"><i class="fas fa-house-chimney"></i><h3>Budowa domów</h3><p>Realizacje od fundamentów po dach — domy jednorodzinne pod klucz.</p></div>
+        <div class="service"><i class="fas fa-paint-roller"></i><h3>Remonty</h3><p>Remonty mieszkań, łazienek, kuchni — kompleksowe wykończenia.</p></div>
+        <div class="service"><i class="fas fa-brush"></i><h3>Elewacje</h3><p>Docieplenia, tynki dekoracyjne i malowanie elewacji.</p></div>
+        <div class="service"><i class="fas fa-bolt"></i><h3>Instalacje</h3><p>Instalacje elektryczne, wod.-kan. i ogrzewanie wykonane przez specjalistów.</p></div>
+      </div>
+    </section>
+
+    <!-- KONTAKT -->
+    <section id="kontakt" class="anim-in">
+      <h2>Kontakt</h2>
+      <div class="contact-grid">
+        <form id="contactForm" onsubmit="sendEmail(event)">
+          <label for="name">Imię i nazwisko</label>
+          <input id="name" name="from_name" type="text" required>
+          <label for="email">Email</label>
+          <input id="email" name="from_email" type="email" required>
+          <label for="phone">Telefon</label>
+          <input id="phone" name="phone" type="tel">
+          <label for="message">Wiadomość</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+          <button type="submit">Wyślij wiadomość</button>
+          <p style="margin-top:10px;color:var(--muted)">Alternatywnie zadzwoń: <a href="tel:+48534428609">+48 534 428 609</a></p>
+        </form>
+        <div>
+          <div class="info-card">
+            <h3>Adres</h3>
+            <p>43-195 Mikołów, ul. Botaniczna 16</p>
+            <h3>Godziny</h3>
+            <p>pn–pt: 8:00–17:00</p>
+            <h3>Email</h3>
+            <p><a href="mailto:michaldalmata9@gmail.com">michaldalmata9@gmail.com</a></p>
+          </div>
+          <div style="margin-top:14px;border-radius:8px;overflow:hidden">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d638.6456327706361!2d18.853581264066143!3d50.187645307585164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4716cb06f8e2ca9d%3A0xd831772c21c1ddc!2sBotaniczna%2016%2C%2043-190%20Miko%C5%82%C3%B3w!5e0!3m2!1spl!2spl!4v1759347984526!5m2!1spl!2spl" width="100%" height="350" style="border:0;" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      © 2025 Dalmat | michaldalmata9@gmail.com
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    const heroEl = document.querySelector('.hero');
+    const heroContent = document.querySelector('.hero-content');
+    const heroDots = document.querySelector('.hero-dots');
+    const heroSlides = ['assets/h1.png','assets/h2.png','assets/h3.png'];
+    let heroIndex = 0, slideEls = [];
+
+    heroSlides.forEach((src,i)=>{
+      const d=document.createElement('div');
+      d.className='hero-slide';
+      if(i===0) d.classList.add('active');
+      d.style.backgroundImage=`url("${src}")`;
+      heroEl.appendChild(d);
+      slideEls.push(d);
+
+      const dot=document.createElement('button');
+      if(i===0) dot.classList.add('active');
+      dot.onclick=()=>gotoSlide(i);
+      heroDots.appendChild(dot);
+    });
+
+    function gotoSlide(i){
+      slideEls[heroIndex].classList.remove('active');
+      heroDots.children[heroIndex].classList.remove('active');
+      heroIndex=i;
+      slideEls[heroIndex].classList.add('active');
+      heroDots.children[heroIndex].classList.add('active');
+    }
+    setInterval(()=>gotoSlide((heroIndex+1)%slideEls.length),4500);
+    window.addEventListener('load',()=>setTimeout(()=>heroContent.classList.add('visible'),250));
+
+    const menuToggle=document.querySelector('.menu-toggle'),
+          navEl=document.querySelector('nav');
+    menuToggle.addEventListener('click',()=>{
+      const exp=menuToggle.getAttribute('aria-expanded')==='true';
+      menuToggle.setAttribute('aria-expanded',!exp);
+      navEl.style.display=navEl.style.display==='flex'?'':'flex';
+    });
+
+    emailjs.init("JSaRac7QLOKz1Sm7Q"); 
+    async function sendEmail(e){
+      e.preventDefault();
+      const form = document.getElementById("contactForm");
+      try {
+        await emailjs.sendForm("service_60mz7p9","template_81puidr",form);
+        alert("✅ Wiadomość została wysłana!");
+        form.reset();
+      } catch (error) {
+        console.error("❌ Błąd wysyłki:", error);
+        alert("❌ Wysyłka się nie udała. Spróbuj ponownie.");
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="pl" style="background:#1b1b1b;color-scheme:dark;">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nasze realizacje - Dalmat</title>
+  <link rel="icon" href="assets/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+  <style>
+  /* ---------- Root palette ---------- */
+  :root {
+    --accent:#d32f2f;
+    --dark:#111;
+    --light:#f2f2f2;
+    --bg:#1b1b1b;
+    --muted:#aaa;
+    --panel:#242424;
+    --header-h:64px;
+    font-family:"Roboto", Arial, sans-serif;
+  }
+
+  /* ---------- Global ---------- */
+  html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(120deg, #1b1b1b, #222, #1a1a1a);
+  background-size: 400% 400%;
+  animation: bgShift 20s ease infinite;
+  color: var(--light);
+  font-family: "Roboto", sans-serif;
+  scroll-behavior: smooth;
+  position: relative;
+  overflow-x: hidden;
+}
+
+@keyframes bgShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Subtle overlay for visual depth */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(211,47,47,0.12), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(255,255,255,0.05), transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+
+  /* Prevent flash of white before CSS loads */
+  @media (prefers-color-scheme: dark) {
+    html,body{background:#1b1b1b;color:#f2f2f2;}
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    position:fixed;
+    top:0; left:0; right:0;
+    height:var(--header-h);
+    background:rgba(17,17,17,0.95);
+    color:var(--light);
+    z-index:1200;
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(255,255,255,0.05);
+  }
+
+  .topbar {
+    max-width:1200px;
+    margin:0 auto;
+    height:var(--header-h);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+  }
+
+  .brand {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-weight:700;
+    color:var(--light); /* white again */
+  }
+
+  .brand strong {
+    font-family:'Cinzel Decorative', cursive;
+    font-size:1.9rem;
+    letter-spacing:5px;
+    color:var(--light); /* reverted from red to white */
+  }
+
+  .brand img {
+    height:40px;
+    border-radius:6px;
+    background:#fff;
+    padding:3px;
+  }
+
+  nav {
+    display:flex;
+    gap:18px;
+    align-items:center;
+  }
+
+  nav a {
+    color:var(--light);
+    font-weight:600;
+    padding:8px 10px;
+    border-radius:6px;
+    transition:background .2s,color .2s;
+    text-decoration:none;
+  }
+
+  nav a:hover {
+    background:rgba(255,255,255,0.1);
+    color:var(--accent);
+  }
+
+  /* ---------- Main ---------- */
+  main {
+    flex:1;
+    max-width:1200px;
+    margin:100px auto;
+    padding:0 20px 80px;
+  }
+
+  h2 {
+    text-align:center;
+    font-size:32px;
+    margin-bottom:20px;
+    color:#fff;
+  }
+
+  p {text-align:center;color:var(--muted);margin-bottom:14px;}
+
+  .portfolio {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+    gap:14px;
+  }
+
+  .portfolio figure {
+    overflow:hidden;
+    border-radius:10px;
+    background:var(--panel);
+    opacity:0;
+    transform:translateY(30px) scale(0.98);
+    transition:transform .3s ease,opacity .7s ease;
+    box-shadow:0 4px 16px rgba(0,0,0,0.3);
+  }
+
+  .portfolio figure.visible {
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+
+  .portfolio figure:hover {
+    transform:scale(1.03);
+    box-shadow:0 10px 26px rgba(0,0,0,0.5);
+  }
+
+  .portfolio img {
+    width:100%;
+    aspect-ratio:16/9;
+    object-fit:cover;
+    display:block;
+    filter:brightness(0.95);
+  }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox {
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.9);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    visibility:hidden;
+    opacity:0;
+    transition:opacity .25s;
+    z-index:2000;
+  }
+  .lightbox.visible {visibility:visible;opacity:1;}
+  .lightbox img {
+    max-width:94%;
+    max-height:92%;
+    border-radius:8px;
+    box-shadow:0 0 40px rgba(0,0,0,0.8);
+  }
+
+  .close-lightbox {
+    position:absolute;
+    top:20px;right:30px;
+    font-size:28px;
+    color:#fff;
+    background:none;border:0;cursor:pointer;
+  }
+
+  .lightbox button.prev-lightbox,
+  .lightbox button.next-lightbox {
+    position:absolute;
+    top:50%;transform:translateY(-50%);
+    font-size:48px;
+    color:#fff;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:10px;
+    z-index:2100;
+    opacity:0.8;
+    transition:opacity 0.2s;
+  }
+  .lightbox button.prev-lightbox:hover,
+  .lightbox button.next-lightbox:hover{opacity:1;}
+  .lightbox button.prev-lightbox{left:30px;}
+  .lightbox button.next-lightbox{right:30px;}
+
+  /* ---------- Footer ---------- */
+  footer {
+    background:#111;
+    color:#ccc;
+    padding:20px;
+    text-align:center;
+    font-size:0.95rem;
+    border-top:1px solid rgba(255,255,255,0.1);
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <div class="brand"><img src="assets/logo.png" alt="logo"> <strong>Dalmata	</strong></div>
+      <nav>
+        <a href="index.html">Strona główna</a>
+        <a href="index.html#o-nas">O nas</a>
+        <a href="index.html#uslugi">Usługi</a>
+        <a href="realizacje.html">Realizacje</a>
+        <a href="index.html#kontakt" style="background:var(--accent);padding:8px 10px;border-radius:6px;color:#fff">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h2>Nasze realizacje</h2>
+    <p style="text-align:center;color:#666;margin-bottom:14px">Kliknij zdjęcie, aby powiększyć</p>
+    <div class="portfolio">
+      <figure><img src="assets/h1.png" data-full="assets/h1.png" alt="Realizacja 1" loading="lazy"></figure>
+      <figure><img src="assets/h2.png" data-full="assets/h2.png" alt="Realizacja 2" loading="lazy"></figure>
+      <figure><img src="assets/h3.png" data-full="assets/h3.png" alt="Realizacja 3" loading="lazy"></figure>
+      <figure><img src="assets/h4.png" data-full="assets/h4.png" alt="Realizacja 4" loading="lazy"></figure>
+      <figure><img src="assets/h5.png" data-full="assets/h5.png" alt="Realizacja 5" loading="lazy"></figure>
+      <figure><img src="assets/h6.png" data-full="assets/h6.png" alt="Realizacja 6" loading="lazy"></figure>
+      <figure><img src="assets/h7.png" data-full="assets/h7.png" alt="Realizacja 7" loading="lazy"></figure>
+      <figure><img src="assets/h8.png" data-full="assets/h8.png" alt="Realizacja 8" loading="lazy"></figure>
+      <figure><img src="assets/h9.png" data-full="assets/h9.png" alt="Realizacja 9" loading="lazy"></figure>
+      <figure><img src="assets/h10.png" data-full="assets/h10.png" alt="Realizacja 10" loading="lazy"></figure>
+      <figure><img src="assets/h11.png" data-full="assets/h11.png" alt="Realizacja 11" loading="lazy"></figure>
+      <figure><img src="assets/h12.png" data-full="assets/h12.png" alt="Realizacja 12" loading="lazy"></figure>
+      <figure><img src="assets/h13.png" data-full="assets/h13.png" alt="Realizacja 13" loading="lazy"></figure>
+      <figure><img src="assets/h14.png" data-full="assets/h14.png" alt="Realizacja 14" loading="lazy"></figure>
+      <figure><img src="assets/h15.png" data-full="assets/h15.png" alt="Realizacja 15" loading="lazy"></figure>
+	  <figure><img src="assets/h16.png" data-full="assets/h16.png" alt="Realizacja 16" loading="lazy"></figure>
+      <figure><img src="assets/h17.png" data-full="assets/h17.png" alt="Realizacja 17" loading="lazy"></figure>
+      <figure><img src="assets/h18.png" data-full="assets/h18.png" alt="Realizacja 18" loading="lazy"></figure>
+      <figure><img src="assets/h19.png" data-full="assets/h19.png" alt="Realizacja 19" loading="lazy"></figure>
+	  <figure><img src="assets/h20.png" data-full="assets/h20.png" alt="Realizacja 20" loading="lazy"></figure>
+      <figure><img src="assets/h21.png" data-full="assets/h21.png" alt="Realizacja 21" loading="lazy"></figure>
+      <figure><img src="assets/h22.png" data-full="assets/h22.png" alt="Realizacja 22" loading="lazy"></figure>
+      <figure><img src="assets/h23.png" data-full="assets/h23.png" alt="Realizacja 23" loading="lazy"></figure>
+	  <figure><img src="assets/h24.png" data-full="assets/h24.png" alt="Realizacja 24" loading="lazy"></figure>
+      <figure><img src="assets/h25.png" data-full="assets/h25.png" alt="Realizacja 25" loading="lazy"></figure>
+      <figure><img src="assets/h26.png" data-full="assets/h26.png" alt="Realizacja 26" loading="lazy"></figure>
+      <figure><img src="assets/h27.png" data-full="assets/h27.png" alt="Realizacja 27" loading="lazy"></figure>
+	  <figure><img src="assets/h28.png" data-full="assets/h28.png" alt="Realizacja 28" loading="lazy"></figure>
+      <figure><img src="assets/h29.png" data-full="assets/h29.png" alt="Realizacja 29" loading="lazy"></figure>
+      <figure><img src="assets/h30.png" data-full="assets/h30.png" alt="Realizacja 30" loading="lazy"></figure>
+      <figure><img src="assets/h31.png" data-full="assets/h31.png" alt="Realizacja 31" loading="lazy"></figure>
+	  <figure><img src="assets/h32.png" data-full="assets/h32.png" alt="Realizacja 32" loading="lazy"></figure>
+      <figure><img src="assets/h33.png" data-full="assets/h33.png" alt="Realizacja 33" loading="lazy"></figure>
+    </div>
+  </main>
+
+  <footer>
+    <div>© 2025 Dalmat | michaldalmata9@gmail.com</div>
+  </footer>
+
+  <div id="lightbox" class="lightbox">
+    <button class="close-lightbox">✕</button>
+    <button class="prev-lightbox">‹</button>
+    <img src="" alt="">
+    <button class="next-lightbox">›</button>
+  </div>
+
+  <script>
+    /* Lightbox */
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = lightbox.querySelector('img');
+    const closeBtn = document.querySelector('.close-lightbox');
+    const nextBtn = document.querySelector('.next-lightbox');
+    const prevBtn = document.querySelector('.prev-lightbox');
+    const images = Array.from(document.querySelectorAll('.portfolio img'));
+    let currentIndex = 0;
+
+    function showImage(index) {
+      if (index < 0) index = images.length - 1;
+      if (index >= images.length) index = 0;
+      currentIndex = index;
+      lbImg.src = images[currentIndex].dataset.full;
+      lightbox.classList.add('visible');
+    }
+
+    images.forEach((img, i) => {
+      img.addEventListener('click', () => { showImage(i); });
+    });
+
+    closeBtn.onclick = () => lightbox.classList.remove('visible');
+    nextBtn.onclick = () => showImage(currentIndex + 1);
+    prevBtn.onclick = () => showImage(currentIndex - 1);
+
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) lightbox.classList.remove('visible');
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('visible')) return;
+      if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+      if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+      if (e.key === 'Escape') lightbox.classList.remove('visible');
+    });
+
+    /* Scroll animations with stagger */
+    const figures = document.querySelectorAll('.portfolio figure');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), entry.target.dataset.index * 100);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    figures.forEach((el, i) => { el.dataset.index = i; observer.observe(el); });
+  </script>
+</body>
+</html>
