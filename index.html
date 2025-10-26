@@ -25,7 +25,7 @@
     "name": "Dalmat",
     "image": "",
     "@id": "",
-    "url": "https://www.twoja-strona.pl",
+    "url": "https://www.dalmata-remonty.pl",
     "telephone": "+48 534 428 609",
     "email": "michaldalmata9@gmail.com",
     "description": "Profesjonalne usługi budowlane — remonty, budowa domów pod klucz, elewacje i instalacje. Gwarancja jakości.",
@@ -50,8 +50,8 @@
         "Thursday",
         "Friday"
       ],
-      "opens": "08:00",
-      "closes": "17:00"
+      "opens": "09:00",
+      "closes": "21:00"
     },
     "sameAs": []
   }
@@ -994,7 +994,7 @@
     <div class="topbar">
       <a href="#" class="brand">
         <!-- Placeholder dla logo -->
-        <img src="https://placehold.co/100x100/d32f2f/f2f2f2?text=D&font=cinzel" alt="Logo Dalmat">
+        <img src="assets/favicon1.png" alt="Logo Dalmat">
         <div class="brand-name">Dalmata</div>
       </a>
 
@@ -1099,7 +1099,7 @@
         </div>
         <div class="img">
           <!-- Placeholder dla obrazka zespołu -->
-          <img src="https://placehold.co/420x450/333/aaa?text=Zesp%C3%B3%C5%82+Dalmat" alt="Zespół Dalmat">
+          <img src="assets/team.png" alt="Zespół Dalmat">
         </div>
       </div>
     </section>
@@ -1109,22 +1109,22 @@
       <h2>Nasze usługi</h2>
       <div class="services">
         <!-- Placeholdery dla usług -->
-        <div class="service" style="background-image:url('https://placehold.co/600x400/444/888?text=Budowa+Dom%C3%B3w')">
+        <div class="service" style="background-image:url('assets/service-elewacje.jpg')">
           <i class="fas fa-house-chimney"></i>
           <h3>Budowa domów</h3>
           <p>Realizacje od fundamentów po dach — domy jednorodzinne pod klucz.</p>
         </div>
-        <div class="service" style="background-image:url('https://placehold.co/600x400/444/888?text=Remonty')">
+        <div class="service" style="background-image:url('assets/service-remonty.jpg')">
           <i class="fas fa-paint-roller"></i>
           <h3>Remonty</h3>
           <p>Remonty mieszkań, łazienek, kuchni — kompleksowe wykończenia.</p>
         </div>
-        <div class="service" style="background-image:url('https://placehold.co/600x400/444/888?text=Elewacje')">
+        <div class="service" style="background-image:url('assets/service-budowa.jpg')">
           <i class="fas fa-brush"></i>
           <h3>Elewacje</h3>
           <p>Docieplenia, tynki dekoracyjne i malowanie elewacji.</p>
         </div>
-        <div class="service" style="background-image:url('https://placehold.co/600x400/444/888?text=Instalacje')">
+        <div class="service" style="background-image:url('assets/service-instalacje.jpg')">
           <i class="fas fa-bolt"></i>
           <h3>Instalacje</h3>
           <p>Instalacje elektryczne, wod.-kan. i ogrzewanie wykonane przez specjalistów.</p>
@@ -1167,12 +1167,12 @@
               <h3>Adres</h3>
               <p>43-195 Mikołów, ul. Botaniczna 16</p>
               <h3>Godziny</h3>
-              <p>pn–pt: 8:00–17:00</p>
+              <p>pn–pt: 9:00–21:00</p>
               <h3>Email</h3>
               <p><a href="mailto:michaldalmata9@gmail.com">michaldalmata9@gmail.com</a></p>
             </div>
             <div style="margin-top:14px;border-radius:8px;overflow:hidden; border: 1px solid rgba(255,255,255,0.1);">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!m12!1m3!1d638.6456327706361!2d18.853581264066143!3d50.187645307585164!2m3!1f0!2f0!3f0!3m2!1i1028!2i768!4f13.1!3m3!1m2!1s0x4716cb06f8e2ca9d%3A0xd831772c21c1ddc!2sBotaniczna%2016%C%2C%2043-190%20Miko%C5%82%C3%B3w!5e0!3m2!1spl!2spl!4v1759347984526!5m2!1spl!2spl" width="100%" height="350" style="border:0;" allowfullscreen loading="lazy"></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d638.6456327706361!2d18.853581264066143!3d50.187645307585164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4716cb06f8e2ca9d%3A0xd831772c21c1ddc!2sBotaniczna%2016%2C%2043-190%20Miko%C5%82%C3%B3w!5e0!3m2!1spl!2spl!4v1759347984526!5m2!1spl!2spl" width="100%" height="350" style="border:0;" allowfullscreen loading="lazy"></iframe>
             </div>
           </div>
         </div>
@@ -1223,41 +1223,61 @@
     (function() {
       "use strict";
 
+      // TODO znalesc sposub zeby czytac sekrety z railway dla EmailJS
       // --- Konfiguracja ---
       const EMAILJS_SERVICE_ID = "service_60mz7p9";
       const EMAILJS_TEMPLATE_ID = "template_81puidr";
       const EMAILJS_PUBLIC_KEY = "JSaRac7QLOKz1Sm7Q";
 
       const HERO_SLIDES = [
-        'https://placehold.co/1920x1080/333/555?text=Solidne+Wykonanie',
-        'https://placehold.co/1920x1080/444/666?text=Nowoczesne+Wn%C4%99trza',
-        'https://placehold.co/1920x1080/555/777?text=Terminowo%C5%9B%C4%87'
+        'assets/h34.png',
+        'assets/h36.png',
+        'assets/h3.png'
       ];
 
       // Baza danych dla galerii (placeholder)
       const GALLERY_ITEMS = [
-        { img: 'https://placehold.co/600x400/555/eee?text=Projekt+1', title: 'Budowa domu, Mikołów' },
-        { img: 'https://placehold.co/600x400/555/eee?text=Projekt+2', title: 'Remont łazienki, Katowice' },
-        { img: 'https://placehold.co/600x400/555/eee?text=Projekt+3', title: 'Elewacja, Tychy' },
-        { img: 'https://placehold.co/600x400/555/eee?text=Projekt+4', title: 'Wykończenie mieszkania, Gliwice' },
-        { img: 'https://placehold.co/600x400/555/eee?text=Projekt+5', title: 'Instalacje, Ruda Śląska' },
-        { img: 'https://placehold.co/600x400/555/eee?text=Projekt+6', title: 'Adaptacja poddasza, Mikołów' },
-        { img: 'https://placehold.co/600x400/555/eee?text=Projekt+7', title: 'Kuchnia na wymiar, Zabrze' },
-        { img: 'https://placehold.co/600x400/555/eee?text=Projekt+8', title: 'Taras i kostka, Orzesze' },
-        { img: 'https://placehold.co/600x400/555/eee?text=Projekt+9', title: 'Malowanie biura, Chorzów' },
+        { img: 'assets/h1.png', title: '' },
+        { img: 'assets/h2.png', title: '' },
+        { img: 'assets/h3.png', title: '' },
+        { img: 'assets/h4.png', title: '' },
+        { img: 'assets/h5.png', title: '' },
+        { img: 'assets/h6.png', title: '' },
+        { img: 'assets/h7.png', title: '' },
+        { img: 'assets/h8.png', title: '' },
+        { img: 'assets/h9.png', title: '' },
         // --- Dodatkowe 9 obrazków ---
-        { img: 'https://placehold.co/600x400/444/ddd?text=Projekt+10', title: 'Gładzie i tynki, Katowice' },
-        { img: 'https://placehold.co/600x400/444/ddd?text=Projekt+11', title: 'Podwieszane sufity, Mikołów' },
-        { img: 'https://placehold.co/600x400/444/ddd?text=Projekt+12', title: 'Układanie paneli, Tychy' },
-        { img: 'https://placehold.co/600x400/444/ddd?text=Projekt+13', title: 'Nowa łazienka, Gliwice' },
-        { img: 'https://placehold.co/600x400/444/ddd?text=Projekt+14', title: 'Ocieplenie domu, Ruda Śląska' },
-        { img: 'https://placehold.co/600x400/444/ddd?text=Projekt+15', title: 'Biały montaż, Mikołów' },
-        { img: 'https://placehold.co/600x400/444/ddd?text=Projekt+16', title: 'Remont kuchni, Zabrze' },
-        { img: 'https://placehold.co/600x400/444/ddd?text=Projekt+17', title: 'Ogrodzenie, Orzesze' },
-        { img: 'https://placehold.co/600x400/444/ddd?text=Projekt+18', title: 'Renowacja elewacji, Chorzów' }
+        { img: 'assets/h10.png', title: '' },
+        { img: 'assets/h11.png', title: '' },
+        { img: 'assets/h12.png', title: '' },
+        { img: 'assets/h13.png', title: '' },
+        { img: 'assets/h14.png', title: '' },
+        { img: 'assets/h15.png', title: '' },
+        { img: 'assets/h16.png', title: '' },
+        { img: 'assets/h17.png', title: '' },
+        { img: 'assets/h18.png', title: '' },
+        { img: 'assets/h19.png', title: '' },
+        { img: 'assets/h20.png', title: '' },
+        { img: 'assets/h21.png', title: '' },
+        { img: 'assets/h22.png', title: '' },
+        { img: 'assets/h23.png', title: '' },
+        { img: 'assets/h24.png', title: '' },
+        { img: 'assets/h25.png', title: '' },
+        { img: 'assets/h26.png', title: '' },
+        { img: 'assets/h27.png', title: '' },
+        { img: 'assets/h28.png', title: '' },
+        { img: 'assets/h29.png', title: '' },
+        { img: 'assets/h30.png', title: '' },
+        { img: 'assets/h31.png', title: '' },
+        { img: 'assets/h32.png', title: '' },
+        { img: 'assets/h33.png', title: '' },
+        { img: 'assets/h34.png', title: '' },
+        { img: 'assets/h35.png', title: '' },
+        { img: 'assets/h36.png', title: '' },
+        { img: 'assets/h37.png', title: '' },
       ];
 
-      const ITEMS_PER_PAGE = 9; // Paginacja po 9
+      const ITEMS_PER_PAGE = 6; // Paginacja po 9
 
       // --- Zmienne globalne ---
       let heroIndex = 0;
@@ -1490,7 +1510,7 @@
       // --- Contact Form (EmailJS) ---
 
       function initEmailJS() {
-        emailjs.init(EMAILJS_PUBLIC_KEY);
+        emailjs.init("JSaRac7QLOKz1Sm7Q");
       }
 
       function initContactForm() {
@@ -1501,7 +1521,7 @@
           submitBtn.textContent = "Wysyłanie...";
 
           try {
-            await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, contactForm);
+            await emailjs.sendForm("service_60mz7p9", "template_81puidr", contactForm);
             showToast("✅ Wiadomość została wysłana!", "success");
             contactForm.reset();
           } catch (error) {
